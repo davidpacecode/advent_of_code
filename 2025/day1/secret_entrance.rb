@@ -7,17 +7,13 @@ zero_count = 0
 
 File.read("input.txt").split("\n").each do |line|
 
-  if line[0] == 'L'
-    if (index - line[1..2].to_i) < 0
-      index = 100 - (line[1..2].to_i - index)
-    else
-      index-= line[1..2].to_i
+  if line[0] == "L"
+    (1..line[1..line.length].to_i).each do
+      index - 1 < 0 ? index = 99 : index -= 1
     end
   else
-    if (index + line[1..2].to_i) >= 100
-      index = index + line[1..2].to_i - 100
-    else
-      index+= line[1..2].to_i
+    (1..line[1..line.length].to_i).each do
+      index + 1 > 99 ? index = 0 : index += 1
     end
   end
 
