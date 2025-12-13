@@ -3,13 +3,27 @@
 dial = Array.new(100) { |i| i }
 
 def adjust_dial (current, direction, amount)
-  direction == "L" ? current = current - amount : current = current + amount
-  case current
-  when current < 0
+  puts "current before the adjustment = #{current}"
+  
+  # direction == "L" ? current = current - amount : current = current + amount
+  if direction == "L"
+    current-= amount
+  else
+    current+= amount
+  end
+
+  puts "current after the adjustment = #{current}"
+
+  direction == "L" ? "direction is L" : "direction is R"
+  current < 0 ? "current is less than 0" : "current is more than 0"
+  if current < 0
+    puts "current is less than 0"
     current = 100 - current
-  when current >= 100
+  elsif current >= 100
+    puts "current is greater than or equal to 100"
     current = current - 100
   else
+    puts "current is good"
     current
   end
 end
