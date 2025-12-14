@@ -17,7 +17,7 @@ File.read("input.txt").split("\n").each do |line|
     end
   end
 
-  zero_count+= 1 if index == 0
+  zero_count += 1 if index == 0
 
   puts "- The dial is rotated #{line} to point at #{index}"
 end
