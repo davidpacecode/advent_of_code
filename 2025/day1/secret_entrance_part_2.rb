@@ -15,7 +15,7 @@ File.read("input.txt").split("\n").each do |line|
   else
     (1..line[1..line.length].to_i).each do
       index + 1 > 99 ? index = 0 : index += 1
-      zero_count+= 1 if index == 0
+      zero_count += 1 if index == 0
     end
   end
 
