@@ -1,7 +1,11 @@
 #!/home/dsp2/.local/share/mise/installs/ruby/3.3.4/bin/ruby
 
 def sum_codes(sub_str, num)
-  5
+  sum = 0
+  sub_str.to_s.length.downto(1) do |i|
+    puts "i is #{i}"
+  end
+ 5 
 end
 
 def is_repeating(sub_str, num)
@@ -10,8 +14,6 @@ def is_repeating(sub_str, num)
   num_iterations.times do
     comp_str = comp_str.concat(sub_str.to_s)
   end
-  puts "comp_str is #{comp_str}"
-  puts "num is #{num}"
   comp_str == num.to_s ? true : false
 end
 
