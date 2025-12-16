@@ -2,20 +2,17 @@
 
 def sum_codes(sub_str, num)
   sum = 0
-  sub_str.length - 1.downto(0) do |i|
+  sub_str.length.downto(1) do |i|
     if num.length.to_i % sub_str.length.to_i == 0
       # puts "about to see if #{sub_str[0..i]} repeats within #{num}"
-      if num == "1188511885"
-        puts "fuck you"
-        puts "about to test sub_str = #{sub_str[0..i]}"
-      end
-      if is_repeating(sub_str[0..i], num)
+      if is_repeating(sub_str[0..i-1], num)
+        # puts "about to add #{num} to the sum"
         sum += num.to_i
-        puts "#{num} has repeating elements, according to me... "
-        return sum
+        print " #{num}"
       end
     end
   end
+  return sum
 end
 
 def is_repeating(sub_str, num)
@@ -28,17 +25,23 @@ def is_repeating(sub_str, num)
 end
 
 sum = 0
+puts "sum is #{sum}"
 
 File.read("input_part_2.txt").split(",").each do |line|
 
-  puts "#{line.split('-')[0].to_i} - #{line.split('-')[1].to_i}: "
+  print "#{line.split('-')[0]} - #{line.split('-')[1]}: "
   (line.split('-')[0].to_i..line.split('-')[1].to_i).each do |num|
     if num.to_s.length.even?
       sum += sum_codes(num.to_s[0..(num.to_s.length/2) - 1],num.to_s)
+      # puts "running sum is now #{sum}"
     else
       sum += sum_codes(num.to_s[0..(num.to_s.length/3) - 1],num.to_s)
+      # puts "running sum is now #{sum}"
+      # puts "found an odd one"
     end
   end
+  puts
+  puts "sum is currently #{sum}"
   puts
 end
 
