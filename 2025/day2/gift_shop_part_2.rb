@@ -31,7 +31,7 @@ sum = 0
 
 File.read("input_part_2.txt").split(",").each do |line|
 
-  print "#{line.split('-')[0].to_i} - #{line.split('-')[1].to_i}: "
+  puts "#{line.split('-')[0].to_i} - #{line.split('-')[1].to_i}: "
   (line.split('-')[0].to_i..line.split('-')[1].to_i).each do |num|
     if num.to_s.length.even?
       sum += sum_codes(num.to_s[0..(num.to_s.length/2) - 1],num.to_s)
