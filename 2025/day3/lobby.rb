@@ -9,12 +9,6 @@ File.open("input.txt").each_line do |line|
   tens = arr.max
   tens_index = arr.size - rev_arr.index(tens) - 1
 
-  # puts "#{line}"
-  # puts "tens_index is #{tens_index} and arr.size is #{arr.size}"
-  # arr.each.with_index do |a, index|
-  #   puts "arr[#{index}] is #{a}"
-  # end
-
   if arr.one?(tens) == false
     ones = tens
   elsif tens_index == arr.size - 1
@@ -25,8 +19,6 @@ File.open("input.txt").each_line do |line|
   end
 
   sum += tens * 10 + ones
-  print "#{line.chomp} -> "
-  puts "#{tens * 10 + ones}"
 end
 
 puts "sum: #{sum}"
