@@ -15,7 +15,9 @@ File.open("input.txt").each_line do |line|
   #   puts "arr[#{index}] is #{a}"
   # end
 
-  if tens_index == arr.size - 1
+  if arr.one?(tens) == false
+    ones = tens
+  elsif tens_index == arr.size - 1
     ones = tens
     tens = arr[0..tens_index - 1].max
   else
