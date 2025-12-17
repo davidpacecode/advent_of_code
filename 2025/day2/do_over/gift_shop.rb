@@ -24,7 +24,7 @@ end
 
 sum = 0
 
-File.read("input_part_2.txt").split(',').each do |line|
+File.read("input.txt").split(',').each do |line|
 
   (line.split('-')[0].to_i..line.split('-')[1].to_i).each do |num|
     sum += num if made_of_repeating_str?(num.to_s)
