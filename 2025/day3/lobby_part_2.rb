@@ -1,5 +1,16 @@
 #!/home/dsp2/.local/share/mise/installs/ruby/3.4.7/bin/ruby
 
+def bigger_num_ahead?(num,posn,arr)
+  arr[posn + 1 .. arr.length - 1].each do |num2|
+    if num2 > num
+      return true
+    elsif num2 < num
+      return false
+    end
+  end
+  false
+end
+
 sum = 0
 
 File.open("input.txt").each_line do |line|
@@ -19,6 +30,11 @@ File.open("input.txt").each_line do |line|
     if num < arr[posn + 1]
       delete_list << posn
       delete_count += 1
+    elsif num == arr[posn + 1]
+      if bigger_num_ahead?(num,posn,arr)
+        delete_list << posn
+        delete_count += 1
+      end
     end
 
     break if delete_count == 3
@@ -28,11 +44,12 @@ File.open("input.txt").each_line do |line|
 
   puts
 
+  arr2 = Marshal.load(Marshal.dump(arr))
   delete_list = []
   if delete_count < 3
 
-    (arr.size - 1).downto(0) do |posn|
-      if arr[posn] <= arr[posn - 1]
+    (arr2.size - 1).downto(1) do |posn|
+      if arr2[posn] <= arr2[posn - 1]
         delete_list << posn
         delete_count += 1
       end
@@ -41,11 +58,11 @@ File.open("input.txt").each_line do |line|
     end
   end
 
-  delete_list.sort.reverse.each { |posn| arr.delete_at(posn) }
+  delete_list.sort.reverse.each { |posn| arr2.delete_at(posn) }
 
-  puts "arr.length: #{arr.length}"
+  puts "arr2.length: #{arr2.length}"
   val = ""
-  arr.each { |num| val.concat(num.to_s) }
+  arr2.each { |num| val.concat(num.to_s) }
   puts "#{val}"
   puts
   sum += val.to_i
