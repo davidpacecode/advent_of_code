@@ -1,52 +1,54 @@
 #!/home/dsp2/.local/share/mise/installs/ruby/3.4.7/bin/ruby
 
-require 'set'
-
-def find_bottom_3(arr)
-
-  count = 0
-  bottom_3 = Set.new
-
-  (1..9).each do |i|
-    arr.count(i).times do
-      bottom_3.add(i) unless count > 3
-      count += 1
-      break if count >= 3
-    end
-    break if count >= 3
-  end
-  bottom_3
-end
-
-def is_bigger_ahead?(num, posn, arr)
-  arr[posn..arr.length - 1].each do |n|
-    return true if n >= num
-  end
-  false
-end
-
 sum = 0
 
 File.open("input.txt").each_line do |line|
 
   arr = line.chomp.chars.map(&:to_i)
 
-  bottom_3 = find_bottom_3(arr)
-  puts "arr.length: #{arr.length}"
-  puts "the bottom_3 of #{line} are #{bottom_3.to_a.to_s}"
-
   delete_count = 0
+  delete_list = []
+
+  puts "line is #{line}"
+  puts "arr is #{arr.to_s}"
 
   arr.each_with_index do |num, posn|
-    if bottom_3.include?(num)
-      arr.delete_at(posn) if is_bigger_ahead?(num, posn, arr) and delete_count < 3
+
+    break if posn == arr.length - 1
+
+    if num < arr[posn + 1]
+      delete_list << posn
       delete_count += 1
+    end
+
+    break if delete_count == 3
+  end
+
+  delete_list.sort.reverse.each { |posn| arr.delete_at(posn) }
+
+  puts
+
+  delete_list = []
+  if delete_count < 3
+
+    (arr.size - 1).downto(0) do |posn|
+      if arr[posn] <= arr[posn - 1]
+        delete_list << posn
+        delete_count += 1
+      end
+
       break if delete_count == 3
     end
   end
 
+  delete_list.sort.reverse.each { |posn| arr.delete_at(posn) }
+
   puts "arr.length: #{arr.length}"
-  puts "arr is now #{arr.to_s}"
+  val = ""
+  arr.each { |num| val.concat(num.to_s) }
+  puts "#{val}"
+  puts
+  sum += val.to_i
 end
 
 puts "sum: #{sum}"
