@@ -34,10 +34,20 @@ def count_adjacencies (grid,r,c,num_lines,line_length)
   adjacencies
 end
 
+def print_grid (grid)
+  grid.each_with_index do |row, r|
+    row.each_with_index do |col, c|
+      print "#{grid[r][c]}"
+    end
+    puts
+  end
+end
+
 
 lines = File.read("input.txt").lines
 num_lines = lines.count
 line_length = lines[0].chomp.length
+accessible_rolls = 0
 
 grid = Array.new(num_lines) { Array.new(line_length) }
 
@@ -51,28 +61,22 @@ lines.each_with_index do |line, i|
   end
 end
 
-grid.each_with_index do |row, r|
-  row.each_with_index do |col, c|
-    print "#{grid[r][c]}"
-  end
-  puts
-end
-
+puts
+print_grid (grid)
+puts
 
 grid.each_with_index do |row, r|
   row.each_with_index do |col, c|
     if grid[r][c] == '@'
-    grid[r][c] = count_adjacencies(grid,r,c,num_lines,line_length).to_s
+      accessible_rolls += 1 if count_adjacencies(grid,r,c,num_lines,line_length) < 4
+      print "#{count_adjacencies(grid,r,c,num_lines,line_length)}"
+    else
+      print "#{grid[r][c]}"
     end
   end
+  puts
 end
 
 puts
 
-
-grid.each_with_index do |row, r|
-  row.each_with_index do |col, c|
-    print "#{grid[r][c]}"
-  end
-  puts
-end
+puts "accessible rolls: #{accessible_rolls}"
