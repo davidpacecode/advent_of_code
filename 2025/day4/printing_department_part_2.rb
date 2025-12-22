@@ -46,6 +46,8 @@ lines = File.read("input.txt").lines
 num_lines = lines.count
 line_length = lines[0].chomp.length
 accessible_rolls = 0
+remove_list = []
+deletes_remain = true
 
 grid = Array.new(num_lines) { Array.new(line_length) }
 
@@ -63,18 +65,26 @@ puts
 print_grid (grid)
 puts
 
-grid.each_with_index do |row, r|
-  row.each_with_index do |col, c|
-    if grid[r][c] == '@'
-      accessible_rolls += 1 if count_adjacencies(grid,r,c,num_lines,line_length) < 4
-      print "#{count_adjacencies(grid,r,c,num_lines,line_length)}"
-    else
-      print "#{grid[r][c]}"
+while deletes_remain
+  grid.each_with_index do |row, r|
+    row.each_with_index do |col, c|
+      if grid[r][c] == '@'
+        accessible_rolls += 1 if count_adjacencies(grid,r,c,num_lines,line_length) < 4
+        remove_list << [r,c]
+        print "#{count_adjacencies(grid,r,c,num_lines,line_length)}"
+      else
+        print "#{grid[r][c]}"
+      end
     end
+    puts
   end
-  puts
-end
 
-puts
+  puts
+
+  deletes_remain = true if remove_list.length > 0
+  while remove_list.length > 0
+    grid[remove_list.pop[0]][remove_list.pop[1]] = 'x'
+  end
+end
 
 puts "accessible rolls: #{accessible_rolls}"
