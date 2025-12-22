@@ -66,11 +66,15 @@ print_grid (grid)
 puts
 
 while deletes_remain
+  deletes_remain = false
   grid.each_with_index do |row, r|
     row.each_with_index do |col, c|
       if grid[r][c] == '@'
-        accessible_rolls += 1 if count_adjacencies(grid,r,c,num_lines,line_length) < 4
-        remove_list << [r,c]
+        if count_adjacencies(grid,r,c,num_lines,line_length) < 4
+          accessible_rolls += 1
+          remove_list << [r,c]
+          deletes_remain = true
+        end
         print "#{count_adjacencies(grid,r,c,num_lines,line_length)}"
       else
         print "#{grid[r][c]}"
@@ -81,9 +85,9 @@ while deletes_remain
 
   puts
 
-  deletes_remain = true if remove_list.length > 0
-  while remove_list.length > 0
-    grid[remove_list.pop[0]][remove_list.pop[1]] = 'x'
+  while !remove_list.empty?
+    r,c = remove_list.pop
+    grid[r][c] = 'x'
   end
 end
 
