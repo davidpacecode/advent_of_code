@@ -10,7 +10,6 @@ blocked_beams = Set.new
 File.open("input.txt") do |file|
 
   lines = file.readlines
-
   beams.add(lines[0].index('S'))
 
   lines[1..lines.count-1].each do |line|
@@ -32,3 +31,4 @@ File.open("input.txt") do |file|
 end
 
 puts "num_splits is #{num_splits}"
+
